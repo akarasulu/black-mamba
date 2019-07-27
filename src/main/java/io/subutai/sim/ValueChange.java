@@ -1,13 +1,17 @@
 package io.subutai.sim;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
 /**
  * The value to change a control parameter to at a point in time in the simulation.
  */
-@AllArgsConstructor
-public final class ValueChange {
-    @Getter private final double value;
-    @Getter private final long timeInMillis;
+@Data
+final class ValueChange {
+    private final double value;
+    private final long timeInMillis;
+
+    @Override
+    public final int hashCode() {
+        return (int) timeInMillis;
+    }
 }
