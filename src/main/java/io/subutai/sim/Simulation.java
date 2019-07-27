@@ -1,12 +1,12 @@
 package io.subutai.sim;
 
-import com.sun.istack.internal.NotNull;
 import lombok.Data;
+import lombok.NonNull;
 
 import java.util.List;
 
 @Data
 public class Simulation {
-    @NotNull private List<ControlParameter> parameters;
-    @NotNull private List<UserAction> userActions;
+    @NonNull private List<ControlParameter> parameters;
+    @NonNull private List<UserAction> userActions;
 }

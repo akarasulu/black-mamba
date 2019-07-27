@@ -1,6 +1,7 @@
 package io.subutai.sim;
 
 import lombok.Data;
+import lombok.NonNull;
 import org.apache.commons.math3.distribution.RealDistribution;
 
 /**
@@ -9,10 +10,10 @@ import org.apache.commons.math3.distribution.RealDistribution;
  */
 @Data
 public class SampledParameter {
-    private final String name;
+    @NonNull private final String name;
     private final double rangeMin;
     private final double rangeMax;
-    private final RealDistribution distribution;
+    @NonNull private final RealDistribution distribution;
     private final double sampleRate;
 
     public double sample() {

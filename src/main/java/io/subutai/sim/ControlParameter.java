@@ -1,6 +1,6 @@
 package io.subutai.sim;
 
-import com.sun.istack.internal.NotNull;
+import lombok.NonNull;
 import lombok.Data;
 import java.util.LinkedList;
 
@@ -11,7 +11,7 @@ import java.util.LinkedList;
  */
 @Data
 public class ControlParameter extends LinkedList<ValueChange> {
-    @NotNull private final String name;
+    @NonNull private final String name;
     private final double rangeMin;
     private final double rangeMax;
 
@@ -20,7 +20,7 @@ public class ControlParameter extends LinkedList<ValueChange> {
      *
      * @return the driver for changing the value
      */
-    @NotNull private final ControlParameterDriver driver;
+    @NonNull private final ControlParameterDriver driver;
 
     /**
      * Should create the ValueChange object and insert it into the correct position

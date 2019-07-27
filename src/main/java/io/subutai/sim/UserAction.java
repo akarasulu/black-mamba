@@ -1,7 +1,7 @@
 package io.subutai.sim;
 
-import com.sun.istack.internal.NotNull;
 import lombok.Data;
+import lombok.NonNull;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Data
 public class UserAction {
-    @NotNull private String name;
-    @NotNull private List<SampledParameter> parameters;
-    @NotNull UserActionDriver driver;
+    @NonNull private String name;
+    @NonNull private List<SampledParameter> parameters;
+    @NonNull UserActionDriver driver;
 }
