@@ -8,11 +8,10 @@ import org.apache.commons.math3.distribution.RealDistribution;
  */
 public interface SampledParameter {
     String getName();
-    boolean isReal();
-    boolean isInteger();
     double getRangeMin();
     double getRangeMax();
     RealDistribution getDistribution();
     void setDistribution(RealDistribution distribution);
+    double getSampleRate();
     double sample();
 }

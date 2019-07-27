@@ -8,7 +8,6 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 public final class ValueChange {
-    @Getter
-    private final double value;
+    @Getter private final double value;
     @Getter private final long timeInMillis;
 }
