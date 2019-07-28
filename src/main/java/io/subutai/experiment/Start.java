@@ -1,11 +1,10 @@
 package io.subutai.experiment;
 
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.math3.distribution.BetaDistribution;
 import org.apache.commons.math3.distribution.BinomialDistribution;
 import org.apache.commons.math3.distribution.CauchyDistribution;
 import org.apache.commons.math3.distribution.GeometricDistribution;
@@ -26,37 +25,35 @@ public class Start
 
         BinomialDistribution bd = new BinomialDistribution( rg, 300, 0.5 );
         final int[] arr = bd.sample( 300 );
-        for ( int n : arr )
-        {
-            map.put( n, frequency( arr, n ) );
-        }
 
-        for ( Integer key : map.keySet() )
-        {
-            System.out.println(key + " " + map.get( key ));
-        }
-
-        System.out.println( arr.length );
+        parseInt( arr );
     }
 
 
     public static void normalDistribution()
     {
         RandomGenerator rg = new JDKRandomGenerator();
-        rg.setSeed( 300 );
 
-        Map<Integer, Integer> map = new HashMap<>();
+        rg.setSeed( 300 );
 
         NormalDistribution tp = new NormalDistribution( rg, 1, 200 );
 
         final double[] arr = tp.sample( 300 );
+
+        parseDouble( arr );
+    }
+
+
+    public static void parseDouble( double[] arr )
+    {
+        Map<Integer, Integer> map = new HashMap<>();
+
         int arr1[] = new int[arr.length];
         int count = 0;
         for ( double n : arr )
         {
-            arr1[count] = (int) n;
+            arr1[count] = ( int ) n;
             count++;
-
         }
         for ( int n : arr1 )
         {
@@ -65,8 +62,26 @@ public class Start
 
         for ( Integer key : map.keySet() )
         {
-            System.out.println(key + " " + map.get( key ));
+            System.out.println( key + " " + map.get( key ) );
         }
+    }
+
+
+    public static void parseInt( int[] arr )
+    {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for ( int n : arr )
+        {
+            map.put( n, frequency( arr, n ) );
+        }
+
+        for ( Integer key : map.keySet() )
+        {
+            System.out.println( key + " " + map.get( key ) );
+        }
+
+        System.out.println( arr.length );
     }
 
 
@@ -75,15 +90,10 @@ public class Start
         RandomGenerator rg = new JDKRandomGenerator();
         rg.setSeed( 300 );
 
-        CauchyDistribution cd = new CauchyDistribution( rg, 500, 5, 0.5 );
+        CauchyDistribution cd = new CauchyDistribution( rg, 300, 5, 0.5 );
         final double[] arr = cd.sample( 300 );
 
-        for ( double n : arr )
-        {
-            System.out.println( Collections.frequency( Arrays.asList( arr ), n ) );
-        }
-
-        System.out.println( arr.length );
+        parseDouble( arr );
     }
 
 
@@ -96,23 +106,38 @@ public class Start
 
         final int[] arr = gd.sample( 300 );
 
-        for ( double n : arr )
+        parseInt( arr );
+    }
+
+
+    public static void betaDistribution()
+    {
+        RandomGenerator rg = new JDKRandomGenerator();
+        rg.setSeed( 300 );
+
+        BetaDistribution betaDistribution = new BetaDistribution( rg, 1, 0.5 );
+
+        final double[] arr = betaDistribution.sample( 300 );
+
+        double[] arr1 = new double[arr.length];
+        int count = 0;
+        for ( double p : arr )
         {
-            System.out.println(n);
+            arr1[count] = p * 10;
+            count++;
         }
 
-        System.out.println( arr.length );
+        parseDouble( arr1 );
     }
 
 
     public static void main( String[] args )
     {
-
-        //        cauchyDistribution();
-//        binomialDistribution();
-                geometricDistribution();
-//                        normalDistribution();
-
+        // cauchyDistribution();
+        // binomialDistribution();
+        // geometricDistribution();
+        // normalDistribution();
+        // betaDistribution();
     }
 
 
