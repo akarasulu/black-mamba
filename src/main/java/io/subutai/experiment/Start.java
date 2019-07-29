@@ -1,12 +1,14 @@
 package io.subutai.experiment;
 
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.math3.distribution.BetaDistribution;
 import org.apache.commons.math3.distribution.BinomialDistribution;
 import org.apache.commons.math3.distribution.CauchyDistribution;
+import org.apache.commons.math3.distribution.ConstantRealDistribution;
 import org.apache.commons.math3.distribution.GeometricDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.JDKRandomGenerator;
@@ -90,7 +92,7 @@ public class Start
         RandomGenerator rg = new JDKRandomGenerator();
         rg.setSeed( 300 );
 
-        CauchyDistribution cd = new CauchyDistribution( rg, 300, 5, 0.5 );
+        CauchyDistribution cd = new CauchyDistribution( rg, 300, 1, 0.1 );
         final double[] arr = cd.sample( 300 );
 
         parseDouble( arr );
@@ -131,13 +133,23 @@ public class Start
     }
 
 
+    public static void constantRealDistribution()
+    {
+        ConstantRealDistribution crd = new ConstantRealDistribution( 0.5 );
+        final double[] arr = crd.sample( 300 );
+
+        System.out.println( Arrays.toString( arr ) );
+
+        parseDouble( arr );
+    }
+
+
     public static void main( String[] args )
     {
-        // cauchyDistribution();
-        // binomialDistribution();
-        // geometricDistribution();
-        // normalDistribution();
-        // betaDistribution();
+        //        cauchyDistribution();
+        //        binomialDistribution();
+                geometricDistribution();
+        //        betaDistribution();
     }
 
 
