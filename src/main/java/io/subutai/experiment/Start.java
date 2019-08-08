@@ -1,9 +1,13 @@
 package io.subutai.experiment;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.math3.distribution.BetaDistribution;
@@ -15,8 +19,17 @@ import org.apache.commons.math3.distribution.GeometricDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import io.subutai.http.HttpUtil;
+
+import static org.apache.http.HttpHeaders.USER_AGENT;
 
 
 public class Start
@@ -190,14 +203,17 @@ public class Start
 
             for ( int i = 0; i < map.get( key ); i++ )
             {
-                Map<String, String> params = new HashMap<>();
-                params.put( "amount", map.get( key ).toString() );
+//                Map<String, String> params = new HashMap<>();
+//                params.put( "amount", key.toString() );
 
                 try
                 {
-                    HttpUtil.postByURLConnection( "http://localhost:3000/khan", params, 7000 );
+//                    HttpUtil.postByURLConnection( "http://localhost:3000/khan", params, 20000 );
+                    sendPost(key.toString());
+
+                    Thread.sleep( 6000 );
                 }
-                catch ( IOException e )
+                catch (  Exception e )
                 {
                     e.printStackTrace();
                 }
@@ -222,5 +238,40 @@ public class Start
         }
 
         return count;
+    }
+
+    private static void sendPost(String  amount ) throws Exception {
+
+        String url = "http://localhost:3000/khan?amount="+amount;
+
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost(url);
+
+        // add header
+        post.setHeader("User-Agent", USER_AGENT);
+
+        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+//        urlParameters.add(new BasicNameValuePair("amount", amount) );
+
+
+        post.setEntity(new UrlEncodedFormEntity(urlParameters) );
+
+        HttpResponse response = client.execute(post );
+        System.out.println("\nSending 'POST' request to URL : " + url);
+        System.out.println("Post parameters : " + post.getEntity());
+        System.out.println("Response Code : " +
+                response.getStatusLine().getStatusCode());
+
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+
+        StringBuffer result = new StringBuffer();
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+
+        System.out.println(result.toString());
+
     }
 }
